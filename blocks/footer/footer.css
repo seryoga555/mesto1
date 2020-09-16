@@ -1,0 +1,23 @@
+@import url(__authtor/footer__authtor.css);
+
+.footer {
+  max-width: 882px;
+  display: flex;
+  margin: 0 auto;
+  padding-top: 66px;
+  padding-bottom: 60px;
+}
+
+@media screen and (max-width: 900px) {
+  .footer {
+    max-width: 90vw;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .footer {
+    max-width: 282px;
+    padding: 48px;
+    padding-bottom: 36px;
+  }
+}
