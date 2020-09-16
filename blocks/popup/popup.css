@@ -2,8 +2,7 @@
 @import url(__close-button/popup__close-button.css);
 @import url(__content/popup__content.css);
 @import url(__title/popup__title.css);
-@import url(__form/_job/popup__form_job.css);
-@import url(__form/_name/popup__form_name.css);
+@import url(__form/popup__form.css);
 
 .popup {
   background-color: rgba(0, 0, 0, 0.5);
