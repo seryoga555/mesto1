@@ -3,6 +3,10 @@
 @import url(__content/popup__content.css);
 @import url(__title/popup__title.css);
 @import url(__form/popup__form.css);
+@import url(__image-content/popup__image-content.css);
+@import url(__image/popup__image.css);
+@import url(__text/popup__text.css);
+@import url(_opened/popup_opened.css);
 
 .popup {
   background-color: rgba(0, 0, 0, 0.5);
@@ -11,7 +15,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
   justify-content: center;
   align-items: center;
 }
