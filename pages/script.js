@@ -1,21 +1,21 @@
-let popup = document.querySelector('.popup'); //сам блок попап редактирования профиля
-let editButton = document.querySelector('.profile__edit-button'); //копка редактирования профиля
-let closeButton = document.querySelector('.popup__close-button'); //кнопка закрытия редактирования профиля
-let formElement = document.querySelector('.popup__content'); //форма редактирования профиля
-let nameInput = formElement.querySelector('.popup__form_input_name'); //вводимое в форму имя, для профиля
-let jobInput = formElement.querySelector('.popup__form_input_job'); //вводимое в форму занятие, для профиля
-let profilename = document.querySelector('.profile__name'); //имя отображаемое в профиле
-let profilejob = document.querySelector('.profile__job'); //занятие отображаемое в профиле
-let elements = document.querySelector('.elements'); //блок сайта для добавление карточек
-let addButton = document.querySelector('.profile__add-button'); //кнопка добавить картинку, которая в профиле
-let popupCard = document.querySelector('.popup_card'); //сам блок добавления карточки, попап
-let cardFormElement = document.querySelector('#popupFormCard'); //форма добавление карточки, попап
-let cardCloseButton = document.querySelector('#popupCardCloseButton'); //кнопка закрытия попапа добавления карточки
-let cardName = document.querySelector('#formCardName'); //вводимое в форму название картинки, для добавления карточки
-let cardUrl = document.querySelector('#formCardUrl'); //вводимый в форму URL картинки, для добавления карточки
-let cardCreate = document.querySelector('#cardCreateButton'); //кнопка создания карточки
-let popupImage = document.querySelector('.popup_image'); //сам блок попап с почти фулл-скрин картинкой
-let popupImageClose = document.querySelector('#popupImageCloseButton'); //кнопка выхода из просмотра картинки
+const popup = document.querySelector('.popup'); //сам блок попап редактирования профиля
+const editButton = document.querySelector('.profile__edit-button'); //копка редактирования профиля
+const closeButton = document.querySelector('.popup__close-button'); //кнопка закрытия редактирования профиля
+const formElement = document.querySelector('.popup__content'); //форма редактирования профиля
+const nameInput = formElement.querySelector('.popup__form_input_name'); //вводимое в форму имя, для профиля
+const jobInput = formElement.querySelector('.popup__form_input_job'); //вводимое в форму занятие, для профиля
+const profilename = document.querySelector('.profile__name'); //имя отображаемое в профиле
+const profilejob = document.querySelector('.profile__job'); //занятие отображаемое в профиле
+const elements = document.querySelector('.elements'); //блок сайта для добавление карточек
+const addButton = document.querySelector('.profile__add-button'); //кнопка добавить картинку, которая в профиле
+const popupCard = document.querySelector('.popup_card'); //сам блок добавления карточки, попап
+const cardFormElement = document.querySelector('#popupFormCard'); //форма добавление карточки, попап
+const cardCloseButton = document.querySelector('#popupCardCloseButton'); //кнопка закрытия попапа добавления карточки
+const cardName = cardFormElement.querySelector('#formCardName'); //вводимое в форму название картинки, для добавления карточки
+const cardUrl = cardFormElement.querySelector('#formCardUrl'); //вводимый в форму URL картинки, для добавления карточки
+const cardCreate = document.querySelector('#cardCreateButton'); //кнопка создания карточки
+const popupImage = document.querySelector('.popup_image'); //сам блок попап с почти фулл-скрин картинкой
+const popupImageClose = document.querySelector('#popupImageCloseButton'); //кнопка выхода из просмотра картинки
 
 const initialCards = [ //карточки из коробочки
   {
@@ -46,8 +46,6 @@ const initialCards = [ //карточки из коробочки
 
 function togglePopup(elem) {  //функция включения выключения попапов
   elem.classList.toggle('popup_opened');
-  jobInput.value = profilejob.textContent;
-  nameInput.value = profilename.textContent;
 };
 
 function formSubmitHandler (evt) {  //функция отправки формы профиля
@@ -58,12 +56,12 @@ function formSubmitHandler (evt) {  //функция отправки формы
 };
 
 function addElement(link, name) { //функция клонирования карточки из шаблона и наполнения её элементами
-  let template = document.querySelector('#template').content;
-  let elementsItem = template.cloneNode(true);
-  let cardDelete = elementsItem.querySelector('.element__trash');
-  let cardLike = elementsItem.querySelector('.element__like');
-  let cardImg = elementsItem.querySelector('.element__image');
-  let cardTitle = elementsItem.querySelector('.element__title');
+  const template = document.querySelector('#template').content;
+  const elementsItem = template.cloneNode(true);
+  const cardDelete = elementsItem.querySelector('.element__trash');
+  const cardLike = elementsItem.querySelector('.element__like');
+  const cardImg = elementsItem.querySelector('.element__image');
+  const cardTitle = elementsItem.querySelector('.element__title');
   cardImg.src = link;
   cardImg.alt = name;
   cardTitle.textContent = name;
@@ -87,6 +85,7 @@ function addElement(link, name) { //функция клонирования ка
 function userAddElement(evt) { //функция создания карточки
   evt.preventDefault();
   elements.prepend(addElement(cardUrl.value, cardName.value));
+  cardFormElement.reset(); //функция ресета
   togglePopup(popupCard);
 };
 
@@ -94,18 +93,12 @@ function initialCardsLoad () { //загрузка дефолтных карто�
   initialCards.forEach(({link, name}) => elements.append(addElement(link, name)));
 };
 
-function openClearField () { //чистые поля при открытии формы создания карточки
-  cardName.value = '';
-  cardUrl.value = '';
-};
-
 //триггеры выполнения функций
-editButton.addEventListener('click', () => togglePopup(popup));
+editButton.addEventListener('click', () => {togglePopup(popup); jobInput.value = profilejob.textContent; nameInput.value = profilename.textContent;}); //многострочная стрелочная функция, заполняющая формы инпутов, при открытии
 closeButton.addEventListener('click', () => togglePopup(popup));
 formElement.addEventListener('submit', formSubmitHandler);
 addButton.addEventListener('click', () => togglePopup(popupCard));
 cardCloseButton.addEventListener('click', () => togglePopup(popupCard));
 cardFormElement.addEventListener('submit', userAddElement);
 popupImageClose.addEventListener('click', () => togglePopup(popupImage));
-addButton.addEventListener('click', openClearField);
 initialCardsLoad();
