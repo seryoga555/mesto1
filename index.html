@@ -32,21 +32,25 @@
       </footer>
 
       <div class='popup'>
-        <form class='popup__content' name='form'>
+        <form class='popup__content' name='form' novalidate>
           <button class='popup__close-button' type='button'></button>
           <h3 class='popup__title'>Редактировать профиль</h3>
-          <input class='popup__form popup__form_input_name' type='text' name='name' placeholder='Имя' value='Жак-Ив Кусто' required minlength='2' maxlength='40'>
-          <input class='popup__form popup__form_input_job' type='text' name='job' placeholder='Род занятий' value='Исследователь океана' required minlength='2' maxlength='200'>
+          <input class='popup__form popup__form_input_name' id='profile__input_name' type='text' name='name' placeholder='Имя' value='Жак-Ив Кусто' required minlength='2' maxlength='40'>
+          <span class='popup__error' id='profile__input_name-error'></span>
+          <input class='popup__form popup__form_input_job' id='profile__input_job' type='text' name='job' placeholder='Род занятий' value='Исследователь океана' required minlength='2' maxlength='200'>
+          <span class='popup__error' id='profile__input_job-error'></span>
           <button class='popup__button' type='submit'>Сохранить</button>
         </form>
       </div>
 
       <div class='popup popup_card'>
-        <form class='popup__content' id='popupFormCard' name='cardForm'>
-          <button class='popup__close-button' id='popupCardCloseButton' type='button'></button>
+        <form class='popup__content' id='popupFormCard' name='cardForm' novalidate>
+          <button class='popup__close-button' id='popupCardCloseButton' type='reset'></button>
           <h3 class='popup__title'>Новое место</h3>
-          <input class='popup__form popup__form_input_name' id='formCardName' type='text' name='cardName' placeholder='Название' required minlength='2' maxlength='40'>
-          <input class='popup__form popup__form_input_job' id='formCardUrl' type='url' name='cardUrl' placeholder='Ссылка на картинку' required minlength='2' maxlength='2000'>
+          <input class='popup__form popup__form_input_name' id='formCardName' type='text' name='cardName' placeholder='Название' required minlength='2' maxlength='30'>
+          <span class='popup__error' id='formCardName-error'></span>
+          <input class='popup__form popup__form_input_job' id='formCardUrl' type='url' name='cardUrl' placeholder='Ссылка на картинку' required>
+          <span class='popup__error' id='formCardUrl-error'></span>
           <button class='popup__button' id='cardCreateButton' type='submit'>Создать</button>
         </form>
       </div>
@@ -72,4 +76,5 @@
   </template>
 
   <script src='./pages/script.js'></script>
+  <script src='./pages/validate.js'></script>
 </body>

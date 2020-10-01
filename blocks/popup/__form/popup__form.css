@@ -9,6 +9,10 @@
   margin: 30px auto 0px;
   padding-bottom: 13px;
 }
+
+.popup__form_error {
+  border-bottom: 1px solid red;
+}
     
 @media screen and (max-width: 580px) {
   .popup__form {
