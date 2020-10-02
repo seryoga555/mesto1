@@ -49,33 +49,30 @@ function open(elem) { //функция открытия попапов
   addPopupCloseListener(elem);
   clearErrors(elem);
   elem.classList.add('popup_opened');
+  cardFormElement.reset();
 };
 
 function addPopupCloseListener(elem) { //добавление слушателей на попап
-  document.addEventListener('keydown', escapeclose);
+  document.addEventListener('keyup', escapeClose);
   elem.addEventListener('click', popupEventHandler);
 } 
 
 function closepops(elem) { //функция закрытия попапов
   elem.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escapeclose);
+  document.removeEventListener('keyup', escapeClose);
   elem.removeEventListener('click' , popupEventHandler);
 };
 
 function popupEventHandler (evt) { //функция закрытия по оверлею и крестику
-  if (evt.target.classList.contains('popup')) {
-    closepops(evt.target) 
-  }   
-  if (evt.target.classList.contains('popup__close-button')) {
-    closepops(evt.target.closest('.popup')); 
-  } 
-} 
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
+    closepops(evt.target)
+    closepops(evt.target.closest('.popup'));
+  }
+};
 
-function escapeclose (evt) { //функция закрытия по Esc
+function escapeClose (evt) { //функция закрытия по Esc
   if (evt.key === 'Escape') {
-    const popup = popups.find(function (popup) {
-      return popup.classList.contains('popup_opened');
-    });
+    const popup = document.querySelector('.popup_opened');
     closepops(popup);
   }
 };

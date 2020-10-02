@@ -34,7 +34,7 @@ function toggleButtonState ({inactiveButtonClass}, inputList, buttonElement) { /
     buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.disabled = false;
   }; 
-} 
+}
 
 function setFormEventListeners ({submitButtonSelector, inputSelector, ...rest}, formElement) { //функция устанавливает слушатели инпутов формы
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
@@ -48,10 +48,16 @@ function setFormEventListeners ({submitButtonSelector, inputSelector, ...rest}, 
   });
 };
 
-function enableValidation ({formSelector, ...rest}) { //функция запускающая валидацию
+function enableValidation ({formSelector, ...rest}) { //функция отправляющая массив объектов на установку слушателей
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((form) => {
     setFormEventListeners(rest, form);
+  });
+  formElement.addEventListener('submit', function(evt) { //стопперы стандартного поведения браузера при submit
+    evt.preventDefault();
+  });
+  cardFormElement.addEventListener('submit', function(evt) {
+    evt.preventDefault();
   });
 };
 
