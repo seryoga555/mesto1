@@ -57,7 +57,7 @@ function addPopupCloseListener(elem) { //добавление слушателе
   elem.addEventListener('click', popupEventHandler);
 } 
 
-function closepops(elem) { //функция закрытия попапов
+function closePops(elem) { //функция закрытия попапов
   elem.classList.remove('popup_opened');
   document.removeEventListener('keyup', escapeClose);
   elem.removeEventListener('click' , popupEventHandler);
@@ -65,15 +65,15 @@ function closepops(elem) { //функция закрытия попапов
 
 function popupEventHandler (evt) { //функция закрытия по оверлею и крестику
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
-    closepops(evt.target)
-    closepops(evt.target.closest('.popup'));
+    closePops(evt.target)
+    closePops(evt.target.closest('.popup'));
   }
 };
 
 function escapeClose (evt) { //функция закрытия по Esc
   if (evt.key === 'Escape') {
     const popup = document.querySelector('.popup_opened');
-    closepops(popup);
+    closePops(popup);
   }
 };
 
@@ -81,7 +81,7 @@ function formSubmitHandler (evt) {  //функция отправки формы
     evt.preventDefault();
     profilename.textContent = nameInput.value;
     profilejob.textContent = jobInput.value;
-    closepops(popup);
+    closePops(popup);
 };
 
 function addElement(link, name) { //функция клонирования карточки из шаблона и наполнения её элементами
@@ -115,7 +115,7 @@ function userAddElement(evt) { //функция создания карточк�
   evt.preventDefault();
   elements.prepend(addElement(cardUrl.value, cardName.value));
   cardFormElement.reset();
-  closepops(popupCard);
+  closePops(popupCard);
 };
 
 function initialCardsLoad () { //загрузка дефолтных карточек из коробочки
@@ -129,13 +129,14 @@ editButton.addEventListener('click', () => {
   jobInput.value = profilejob.textContent; 
   nameInput.value = profilename.textContent;
 });
-closeButton.addEventListener('click', () => closepops(popup));
+closeButton.addEventListener('click', () => closePops(popup));
 formElement.addEventListener('submit', formSubmitHandler);
 addButton.addEventListener('click', () => {
   clearErrors(popupCard);
   open(popupCard);
 });
-cardCloseButton.addEventListener('click', () => closepops(popupCard));
+cardCloseButton.addEventListener('click', () => closePops(popupCard));
 cardFormElement.addEventListener('submit', userAddElement);
-popupImageClose.addEventListener('click', () => closepops(popupImage));
+popupImageClose.addEventListener('click', () => closePops(popupImage));
 initialCardsLoad();
+//все названия функций кроме closepops были в стиле lowerCamelCase, переделал closePops и хочу оставить все функции в lCC

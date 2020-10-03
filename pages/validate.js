@@ -52,12 +52,9 @@ function enableValidation ({formSelector, ...rest}) { //функция отпр�
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((form) => {
     setFormEventListeners(rest, form);
-  });
-  formElement.addEventListener('submit', function(evt) { //стопперы стандартного поведения браузера при submit
-    evt.preventDefault();
-  });
-  cardFormElement.addEventListener('submit', function(evt) {
-    evt.preventDefault();
+    form.onsubmit = function(evt){
+      evt.preventDefault();
+    };
   });
 };
 
