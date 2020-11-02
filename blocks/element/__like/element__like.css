@@ -6,6 +6,7 @@
   background-image: url(../../../images/element__like.svg);
   align-self: center;
   margin-bottom: 3px;
+  transition: 0.3s;
 }
 
 .element__like:hover {

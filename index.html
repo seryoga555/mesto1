@@ -31,8 +31,8 @@
         <p class='footer__author'>&#169;2020. Колпащиков Сергей</p>
       </footer>
 
-      <div class='popup'>
-        <form class='popup__content' name='form' novalidate>
+      <div class='popup popup_profile'>
+        <form class='popup__content popup__content_profile' name='form' novalidate>
           <button class='popup__close-button' type='button'></button>
           <h3 class='popup__title'>Редактировать профиль</h3>
           <input class='popup__form popup__form_input_name' id='profile__input_name' type='text' name='name' placeholder='Имя' value='Жак-Ив Кусто' required minlength='2' maxlength='40'>
@@ -44,7 +44,7 @@
       </div>
 
       <div class='popup popup_card'>
-        <form class='popup__content' id='popupFormCard' name='cardForm' novalidate>
+        <form class='popup__content popup__content_card' name='cardForm' novalidate>
           <button class='popup__close-button' id='popupCardCloseButton' type='reset'></button>
           <h3 class='popup__title'>Новое место</h3>
           <input class='popup__form popup__form_input_name' id='formCardName' type='text' name='cardName' placeholder='Название' required minlength='2' maxlength='30'>
@@ -75,6 +75,6 @@
     </div>
   </template>
 
-  <script type='module' src='./pages/index.js'></script>
+  <script type='module' src='./js/index.js'></script>
 
 </body>

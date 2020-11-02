@@ -1,5 +1,5 @@
-import {popupImage} from './index.js'; // импорт перемнной попапа
-import {openAnyPopup} from './index.js' // импорт функции для открытия попапа
+import {popupImage, image, imageText} from './constants.js'; // импорт перемнной попапа
+import {openAnyPopup} from './utils.js' // импорт функции для открытия попапа
 
 export class Card {
   constructor(data, selector) {
@@ -8,20 +8,22 @@ export class Card {
     this._name = data.name;
     this._element = document.querySelector(this._selector).content.querySelector('.element').cloneNode(true);
     this._image = this._element.querySelector('.element__image');
+    this._like = this._element.querySelector('.element__like');
   }
 
   _showCardImage(evt) { // просмотр картинки в попапе
-    document.querySelector('.popup__image').src = evt.target.src; // add url image
-    document.querySelector('.popup__text').textContent = evt.target.alt; // add title
+    image.src = evt.target.src;
+    imageText.textContent = evt.target.alt;
     openAnyPopup(popupImage);
   }
   
-  _toggleLike(evt) { // функция отметки лайка 
-    evt.target.classList.toggle('element__like_active')
+  _toggleLike() { // функция отметки лайка
+    this._like.classList.toggle('element__like_active')
   }
 
-  _cardDelete(evt) {  // Функция удаления карточки 
-    evt.target.closest('.element').remove()
+  _cardDelete() {  // Функция удаления карточки 
+    this._element.remove()
+    this._element = null
   }
 
   _cardClickHandler(evt) { // обработчик кликов на  картинку, лайк  и удаление

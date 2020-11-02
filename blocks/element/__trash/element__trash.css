@@ -10,6 +10,9 @@
   outline: none;
   margin-top: 18px;
   margin-left: 249px;
+  z-index: 2;
+  opacity: 1;
+  transition: 0.3s;
 }
   
 .element__trash:hover {
