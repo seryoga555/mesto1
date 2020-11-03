@@ -1,7 +1,7 @@
 import { Card } from './Card.js' // импорт класса создания карточки
 import { FormValidator } from './FormValidator.js' // импорт класса валидации
-import { openAnyPopup } from './utils.js' //импорт функции открытия попапов
-import { popup, editButton, closeButton, formElement, nameInput, jobInput, profilename, profilejob, elements, 
+import { openAnyPopup, addPopupCloseListener, escapeСlose, closePopup} from './utils.js' //импорт функции открытия попапов
+import { popupProfile, editButton, closeButton, profileFormElement, nameInput, jobInput, profilename, profilejob, elements, 
 addButton, popupCard, cardFormElement, cardCloseButton, cardName, cardUrl, popupImage, popupImageClose } from './constants.js' // константы
 
 const initialCards = [ //карточки из коробочки
@@ -31,22 +31,6 @@ const initialCards = [ //карточки из коробочки
   }
 ];
 
-export function addPopupCloseListener (elem) { // функция добавления слушателей на попап
-  document.addEventListener('keydown', escapeСlose);
-}
-
-function escapeСlose (evt) { // Функция закрытия по эскейп метод find
-if (evt.key === 'Escape') {
-  const openedPopup = document.querySelector('.popup_opened')
-  closePopup(openedPopup);
- }
-}
-
-export function closePopup (elem) { // Функция закрытия попапов
-  elem.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escapeСlose); 
-}
-
 function render () { // функция закрузки первых 6 карточке нашего массива
   initialCards.forEach(({link, name}) => {	
      const cardsArray = new Card({link, name}, '#template');	
@@ -54,31 +38,24 @@ function render () { // функция закрузки первых 6 карт�
   });	
 }    
 
-const closeByOverlay = (evt, popup) => { // Фунцкия закрытия по оверлэй
+const closeByOverlay = (evt, popupProfile) => { // Фунцкия закрытия по оверлэй
   if (evt.target.classList.contains('popup')) {
-    closePopup(popup);
+    closePopup(popupProfile);
   }
 }
 
-const originalValidProfile = new FormValidator({
+const originalValid = {
   formSelector: '.popup__content',
   inputSelector: '.popup__form',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__form_error',
   errorClass: 'popup__error_visible'
-  }, formElement)
+}
+const originalValidProfile = new FormValidator(originalValid, profileFormElement)
+const originalValidCard = new FormValidator(originalValid, cardFormElement)
 
-const originalValidCard = new FormValidator({
-  formSelector: '.popup__content',
-  inputSelector: '.popup__form',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__form_error',
-  errorClass: 'popup__error_visible'
-  }, cardFormElement)
-
-function startFormValidation() { // Функция находящая формы и запускающая валидацию
+function startFormValidation() { 
   originalValidProfile.enableValidation()  
   originalValidCard.enableValidation()
 }
@@ -87,7 +64,7 @@ function formSubmitHandler(evt) { // Обработчик  формы редак
   evt.preventDefault();
   profilename.textContent = nameInput.value;
   profilejob.textContent = jobInput.value;
-  closePopup(popup);
+  closePopup(popupProfile);
 }
 
 function addNewCard(evt) { // Функция создания добавления нового объекта в массив из формы добавления новой карточки
@@ -102,8 +79,8 @@ function addNewCard(evt) { // Функция создания добавлени
 
 // устанавливаем слушатели и вызываем нужные функции
 
-popup.addEventListener ('click', function (evt) { // закрыть основной попап по оверлей
-  closeByOverlay(evt, popup )
+popupProfile.addEventListener ('click', function (evt) { // закрыть основной попап по оверлей
+  closeByOverlay(evt, popupProfile )
 })
 popupCard.addEventListener ('click', function (evt) { // закрыть  попап с карточкой  по оверлей
   closeByOverlay(evt, popupCard )
@@ -112,22 +89,20 @@ popupImage.addEventListener ('click', function (evt) { // закрыть  поп
   closeByOverlay(evt, popupImage )
 })
 
-formElement.addEventListener('submit', formSubmitHandler); // слушатель события сабмит в форме редактирования профиля
+profileFormElement.addEventListener('submit', formSubmitHandler); // слушатель события сабмит в форме редактирования профиля
 
-editButton.addEventListener('click', () => { // ловим клик по кнопке редактирования и открываем popup
+editButton.addEventListener('click', () => { // ловим клик по кнопке редактирования и открываем попап
   originalValidProfile.clearErrors()
-  originalValidCard.clearErrors()
-  openAnyPopup(popup);
+  openAnyPopup(popupProfile);
   nameInput.value = profilename.textContent;
   jobInput.value = profilejob.textContent;
 });
 
-closeButton.addEventListener('click', () => closePopup(popup)); // ловим клик по кнопке закрытия попапа и закрываем его функцией
+closeButton.addEventListener('click', () => closePopup(popupProfile)); // ловим клик по кнопке закрытия попапа и закрываем его функцией
 
 cardFormElement.addEventListener('submit', addNewCard); // навешиваем слушатель события сабмит на форму добавения карточки
 
 addButton.addEventListener('click', () => { // Слушатель клика для кнопки добавить карточку в профиле пользователя
-  originalValidProfile.clearErrors()
   originalValidCard.clearErrors()
   openAnyPopup(popupCard);
   cardFormElement.reset();

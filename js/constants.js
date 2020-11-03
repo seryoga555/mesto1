@@ -1,9 +1,9 @@
-export const popup = document.querySelector('.popup_profile'); //сам блок попап редактирования профиля
+export const popupProfile = document.querySelector('.popup_profile'); //сам блок попап редактирования профиля
 export const editButton = document.querySelector('.profile__edit-button'); //копка редактирования профиля
 export const closeButton = document.querySelector('.popup__close-button'); //кнопка закрытия редактирования профиля
-export const formElement = document.querySelector('.popup__content_profile'); //форма редактирования профиля
-export const nameInput = formElement.querySelector('.popup__form_input_name'); //вводимое в форму имя, для профиля
-export const jobInput = formElement.querySelector('.popup__form_input_job'); //вводимое в форму занятие, для профиля
+export const profileFormElement = document.querySelector('.popup__content_profile'); //форма редактирования профиля
+export const nameInput = profileFormElement.querySelector('.popup__form_input_name'); //вводимое в форму имя, для профиля
+export const jobInput = profileFormElement.querySelector('.popup__form_input_job'); //вводимое в форму занятие, для профиля
 export const profilename = document.querySelector('.profile__name'); //имя отображаемое в профиле
 export const profilejob = document.querySelector('.profile__job'); //занятие отображаемое в профиле
 export const elements = document.querySelector('.elements'); //блок сайта для добавление карточек

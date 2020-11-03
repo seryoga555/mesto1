@@ -1,4 +1,4 @@
-import {popup} from './constants.js';
+import {popupProfile} from './constants.js';
 export class FormValidator {
   constructor(data, element){
     this._inputSelector = data.inputSelector
@@ -58,31 +58,22 @@ export class FormValidator {
       })
     })
   }
-
-  _clearErrors(element) { // Функция удаления ошибок для попапов
-    const inputlist = element.querySelectorAll('.popup__form');
-    const spanlist = element.querySelectorAll('.popup__error');
-    const button = element.querySelector('.popup__button');
-    inputlist.forEach((input) => input.classList.remove('popup__form_error'));
-    spanlist.forEach((span) => {
-      span.classList.remove('popup__error_visible');
-      span.textContent = '';
-    });
-    button.disabled = true;
-    button.classList.add('popup__button_disabled');
   
-    if (element === popup) {
-      button.disabled = false;
-      button.classList.remove('popup__button_disabled');
-    }
-  }
-
-
-  enableValidation() { // функция запускающая процесс валидации
-  this._setFormEventListeners(this._element); 
+  _clearErrors(formElement) {
+    const inputList = Array.from(formElement.querySelectorAll(this._inputSelector)) 
+    const buttonElement = formElement.querySelector(this._submitButtonSelector)
+    this._toggleButtonState(inputList, buttonElement)
+      inputList.forEach((inputElement) => {
+        this._hideInputError (formElement,inputElement)
+        this._toggleButtonState (inputList, buttonElement)
+      })
   }
 
   clearErrors() {
   this._clearErrors(this._element);
+  }
+
+  enableValidation() { // функция запускающая процесс валидации
+  this._setFormEventListeners(this._element); 
   }
 }
